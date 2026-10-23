@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* TVK Official Vibrant Flag Colors */
+    --tvk-red: #d91b24;         /* Rich TVK Crimson Red */
+    --tvk-red-dark: #b9131a;    /* Deep Crimson Accent */
+    --tvk-red-light: #fff1f2;   /* Soft Rose Tint */
+    
+    --tvk-yellow: #facc15;      /* Vibrant Warm TVK Gold/Yellow */
+    --tvk-yellow-dark: #eab308; /* Deep Golden Ochre */
+    --tvk-yellow-light: #fefce8;/* Gentle Warm Amber Cream */
+    
+    --slate-bg: #f8fafc;
+    --card-border: #e2e8f0;
+  }
+
+  body {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    border-inline: none;
+    text-align: left;
+  }
+}
+
+/* TVK Flag Ribbon Graphic */
+.tvk-flag-ribbon {
+  background: linear-gradient(90deg, #d91b24 0%, #d91b24 35%, #facc15 35%, #facc15 65%, #d91b24 65%, #d91b24 100%);
+}
+
+.tvk-flag-border {
+  border-image: linear-gradient(90deg, #d91b24 0%, #facc15 50%, #d91b24 100%) 1;
+}
