@@ -22,16 +22,16 @@ export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-5 sm:space-y-6 max-w-7xl mx-auto">
       {/* Welcome & Organizational Context Banner with TVK Flag Theme */}
-      <div className="bg-gradient-to-r from-red-800 via-red-900 to-slate-950 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden border border-red-700/50">
+      <div className="bg-gradient-to-r from-red-800 via-red-900 to-slate-950 rounded-2xl p-4 sm:p-6 text-white shadow-lg relative overflow-hidden border border-red-700/50">
         {/* Subtle decorative yellow glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-yellow-400 to-red-500"></div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-5">
           <div>
-            <div className="inline-flex items-center space-x-2 text-[11px] font-extrabold uppercase tracking-wider text-yellow-300 bg-black/30 px-3 py-1 rounded-full border border-yellow-400/30 mb-2">
+            <div className="inline-flex items-center space-x-2 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-yellow-300 bg-black/40 px-3 py-1 rounded-full border border-yellow-400/30 mb-2 shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
               <span>
                 {language === 'en'
@@ -39,34 +39,34 @@ export const DashboardPage: React.FC = () => {
                   : 'தமிழ்நாடு மத்திய தோழர்கள் தளம்'}
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white">
               {language === 'en'
                 ? `Vanakkam, ${currentUser.name}`
                 : `வணக்கம், ${currentUser.tamilName}`}
             </h1>
-            <p className="text-xs text-slate-200 mt-1 flex flex-wrap items-center gap-2 font-medium">
+            <p className="text-xs text-slate-200 mt-1 flex flex-wrap items-center gap-1.5 sm:gap-2 font-medium">
               <span className="text-yellow-300 font-bold">{currentUser.organisationRole}</span>
               <span>•</span>
               <span className="flex items-center space-x-1 text-slate-300">
                 <MapPin className="w-3.5 h-3.5 text-yellow-400 shrink-0" />
-                <span>
+                <span className="break-all sm:break-normal">
                   {currentUser.district} → {currentUser.assemblyConstituency} → {currentUser.booth}
                 </span>
               </span>
             </p>
           </div>
 
-          <div className="flex items-center space-x-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={() => navigate('/ai-assistant')}
-              className="px-4 py-2.5 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all flex items-center space-x-2 cursor-pointer border border-yellow-300/40"
+              className="px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all flex items-center space-x-2 cursor-pointer border border-yellow-300/40"
             >
               <Sparkles className="w-4 h-4 text-slate-950" />
               <span>{language === 'en' ? 'Natural Language Search' : 'இயல்புமொழி தேடல்'}</span>
             </button>
             <button
               onClick={() => navigate('/members')}
-              className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-xl border border-white/25 transition-all flex items-center space-x-2 cursor-pointer backdrop-blur-xs"
+              className="px-3.5 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-xl border border-white/25 transition-all flex items-center space-x-2 cursor-pointer backdrop-blur-xs"
             >
               <span>{language === 'en' ? 'Browse Cadre' : 'உறுப்பினர்கள்'}</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-yellow-300" />
@@ -75,16 +75,16 @@ export const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Primary Governance Metrics with Harmonized TVK Visuals */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Primary Governance Metrics with White Card Border & Crisp Elevation */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {/* Metric 1: Total Cadre */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-2xs hover:border-red-200 transition-all relative overflow-hidden group">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 to-yellow-400 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-white shadow-xs hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-600 to-yellow-400 opacity-90 group-hover:opacity-100 transition-opacity"></div>
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-600">
               {language === 'en' ? 'Total Enrolled Cadre' : 'மொத்த உறுப்பினர்கள்'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-red-50 text-red-600 flex items-center justify-center border border-red-100">
+            <div className="w-9 h-9 rounded-xl bg-red-50 text-red-600 flex items-center justify-center border border-red-100 shadow-2xs">
               <Users className="w-4 h-4" />
             </div>
           </div>
@@ -100,13 +100,13 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Metric 2: Verification Rate */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-2xs hover:border-emerald-200 transition-all relative overflow-hidden group">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-white shadow-xs hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-emerald-500 opacity-90 group-hover:opacity-100 transition-opacity"></div>
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-600">
               {language === 'en' ? 'Verification Rate' : 'சரிபார்க்கப்பட்ட விகிதம்'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shadow-2xs">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
@@ -119,13 +119,13 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Metric 3: Active Booth Units */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-2xs hover:border-yellow-300 transition-all relative overflow-hidden group">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-yellow-400 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-white shadow-xs hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-yellow-400 opacity-90 group-hover:opacity-100 transition-opacity"></div>
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-600">
               {language === 'en' ? 'Active Booth Units' : 'செயலில் உள்ள வாக்குச்சாவடிகள்'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-yellow-50 text-yellow-700 flex items-center justify-center border border-yellow-200">
+            <div className="w-9 h-9 rounded-xl bg-yellow-50 text-yellow-700 flex items-center justify-center border border-yellow-200 shadow-2xs">
               <Building2 className="w-4 h-4" />
             </div>
           </div>
@@ -138,13 +138,13 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Metric 4: Professional Wings */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-2xs hover:border-red-200 transition-all relative overflow-hidden group">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 opacity-80 group-hover:opacity-100 transition-opacity"></div>
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-white shadow-xs hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600 opacity-90 group-hover:opacity-100 transition-opacity"></div>
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-600">
               {language === 'en' ? 'Professional Wings' : 'தொழில்முறை அணிகள்'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-red-50 text-red-700 flex items-center justify-center border border-red-100">
+            <div className="w-9 h-9 rounded-xl bg-red-50 text-red-700 flex items-center justify-center border border-red-100 shadow-2xs">
               <Layers className="w-4 h-4" />
             </div>
           </div>
@@ -158,14 +158,14 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* Two Column Layout: Urgent Circulars & Field Service Requests */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
         {/* Left Column: Official Directives & Events */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-5 sm:space-y-6">
           {/* Urgent Directives */}
-          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
+          <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-5 shadow-xs">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-red-50 text-red-600 flex items-center justify-center border border-red-100">
                   <AlertTriangle className="w-4 h-4" />
                 </div>
                 <h3 className="font-extrabold text-slate-900 text-sm">
@@ -183,7 +183,7 @@ export const DashboardPage: React.FC = () => {
               {MOCK_ANNOUNCEMENTS.map((ann) => (
                 <div
                   key={ann.id}
-                  className="p-4 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors space-y-1.5"
+                  className="p-3.5 sm:p-4 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-xs font-semibold mb-1">
                     <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-700 border border-red-200">
@@ -206,10 +206,10 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Upcoming Field Camps & Meetings */}
-          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
+          <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-5 shadow-xs">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-7 h-7 rounded-lg bg-yellow-50 text-yellow-700 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-yellow-50 text-yellow-700 flex items-center justify-center border border-yellow-200">
                   <Calendar className="w-4 h-4" />
                 </div>
                 <h3 className="font-extrabold text-slate-900 text-sm">
@@ -227,7 +227,7 @@ export const DashboardPage: React.FC = () => {
               {MOCK_EVENTS.map((ev) => (
                 <div
                   key={ev.id}
-                  className="flex items-start justify-between p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-all bg-white"
+                  className="flex flex-col sm:flex-row sm:items-start justify-between p-3.5 sm:p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-all bg-white gap-2"
                 >
                   <div className="space-y-1.5">
                     <span className="text-[10px] font-black text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200/80 uppercase">
@@ -237,11 +237,11 @@ export const DashboardPage: React.FC = () => {
                       {language === 'en' ? ev.title : ev.titleTamil}
                     </h4>
                     <p className="text-xs text-slate-500 flex items-center space-x-1.5 font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <span>{ev.location}</span>
                     </p>
                   </div>
-                  <div className="text-right shrink-0">
+                  <div className="sm:text-right shrink-0">
                     <span className="text-xs font-bold text-slate-900 block">{ev.date}</span>
                     <span className="text-[11px] text-slate-500 font-medium">{ev.time}</span>
                   </div>
@@ -252,8 +252,8 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Right Column: Public Service Grievance Intake */}
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
+        <div className="space-y-5 sm:space-y-6">
+          <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-5 shadow-xs">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -298,7 +298,7 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* TVK Official Identity Badge */}
-          <div className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-950 text-white text-xs space-y-2 border border-slate-800 shadow-md">
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 text-white text-xs space-y-2 border-2 border-white shadow-md">
             <div className="flex items-center space-x-2 font-bold text-yellow-300">
               <Award className="w-4 h-4 text-yellow-400" />
               <span>TVK Party Constitution Verified</span>

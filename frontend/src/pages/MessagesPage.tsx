@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { MessageSquare, Send, Search, Users, Shield, Paperclip, CheckCheck } from 'lucide-react';
-import { MOCK_MEMBERS } from '../mock/data';
+import { Send, Search, Shield, Paperclip, ChevronLeft } from 'lucide-react';
 
 export const MessagesPage: React.FC = () => {
-  const { language, currentUser } = useApp();
+  const { language } = useApp();
   const [selectedChannel, setSelectedChannel] = useState('channel-slm-north');
   const [messageText, setMessageText] = useState('');
+  const [showChannelListMobile, setShowChannelListMobile] = useState(false);
 
   const channels = [
     {
@@ -63,16 +63,28 @@ export const MessagesPage: React.FC = () => {
   ];
 
   return (
-    <div className="h-[calc(100vh-7rem)] flex rounded-xl border border-slate-200 bg-white overflow-hidden shadow-2xs">
-      {/* Channels Sidebar */}
-      <div className="w-80 border-r border-slate-200 flex flex-col bg-slate-50 shrink-0">
-        <div className="p-3 border-b border-slate-200 bg-white">
-          <div className="relative">
+    <div className="h-[calc(100vh-6.5rem)] sm:h-[calc(100vh-7rem)] flex rounded-2xl border-2 border-white bg-white overflow-hidden shadow-xs relative">
+      {/* Channels Sidebar - responsive mobile drawer or desktop column */}
+      <div
+        className={`${
+          showChannelListMobile ? 'flex' : 'hidden md:flex'
+        } absolute md:static inset-0 md:inset-auto z-20 w-full md:w-80 border-r border-slate-200 flex-col bg-slate-50 shrink-0`}
+      >
+        <div className="p-3 border-b border-slate-200 bg-white flex items-center space-x-2">
+          {showChannelListMobile && (
+            <button
+              onClick={() => setShowChannelListMobile(false)}
+              className="md:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
+          <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder={language === 'en' ? 'Search conversations...' : 'உரையாடல்களை தேடவும்...'}
-              className="w-full bg-slate-50 border border-slate-200 text-xs rounded-lg pl-9 pr-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30"
+              className="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl pl-9 pr-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30"
             />
           </div>
         </div>
@@ -81,20 +93,23 @@ export const MessagesPage: React.FC = () => {
           {channels.map((c) => (
             <div
               key={c.id}
-              onClick={() => setSelectedChannel(c.id)}
+              onClick={() => {
+                setSelectedChannel(c.id);
+                setShowChannelListMobile(false);
+              }}
               className={`p-3.5 transition-colors cursor-pointer ${
                 selectedChannel === c.id
-                  ? 'bg-red-50/70 border-l-4 border-red-700'
+                  ? 'bg-red-50/80 border-l-4 border-red-700'
                   : 'hover:bg-slate-100/60'
               }`}
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900 truncate">{c.name}</span>
+                <span className="font-extrabold text-slate-900 truncate">{c.name}</span>
                 <span className="text-[10px] text-slate-400 shrink-0">{c.time}</span>
               </div>
               <p className="text-[11px] text-slate-500 truncate mt-1">{c.lastMessage}</p>
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider bg-slate-200 text-slate-700">
+                <span className="text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider bg-slate-200 text-slate-700">
                   {c.type}
                 </span>
                 {c.unread > 0 && (
@@ -109,25 +124,34 @@ export const MessagesPage: React.FC = () => {
       </div>
 
       {/* Active Conversation Pane */}
-      <div className="flex-1 flex flex-col bg-white">
+      <div className="flex-1 flex flex-col bg-white min-w-0">
         {/* Pane Header */}
-        <div className="h-14 border-b border-slate-200 px-6 flex items-center justify-between shrink-0 bg-white">
-          <div>
-            <h2 className="text-xs font-bold text-slate-900">
-              Salem North (AC-089) Functionaries Group
-            </h2>
-            <p className="text-[10px] text-slate-400 flex items-center space-x-1">
-              <Shield className="w-3 h-3 text-emerald-600" />
-              <span>Official Channel • Encrypted by State Central Node</span>
-            </p>
+        <div className="h-14 border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between shrink-0 bg-white">
+          <div className="flex items-center space-x-2 truncate">
+            <button
+              onClick={() => setShowChannelListMobile(true)}
+              className="md:hidden p-1.5 -ml-1 text-slate-600 hover:text-slate-900"
+              title="Channels List"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div className="truncate">
+              <h2 className="text-xs sm:text-sm font-black text-slate-900 truncate">
+                Salem North (AC-089) Functionaries Group
+              </h2>
+              <p className="text-[10px] text-slate-400 flex items-center space-x-1 truncate">
+                <Shield className="w-3 h-3 text-emerald-600 shrink-0" />
+                <span className="truncate">Official Channel • Encrypted by State Central Node</span>
+              </p>
+            </div>
           </div>
-          <div className="text-xs font-semibold text-slate-500">
+          <div className="text-xs font-semibold text-slate-500 shrink-0 hidden sm:block">
             24 Cadres Connected
           </div>
         </div>
 
         {/* Message Stream */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/40">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50/50">
           {chatMessages.map((msg) => (
             <div
               key={msg.id}
@@ -141,10 +165,10 @@ export const MessagesPage: React.FC = () => {
                 <span>{msg.time}</span>
               </div>
               <div
-                className={`max-w-md p-3.5 rounded-xl text-xs leading-relaxed ${
+                className={`max-w-md p-3.5 rounded-2xl text-xs leading-relaxed ${
                   msg.isMe
                     ? 'bg-red-700 text-white rounded-tr-xs shadow-xs'
-                    : 'bg-white text-slate-800 border border-slate-200 rounded-tl-xs shadow-2xs'
+                    : 'bg-white text-slate-800 border-2 border-white rounded-tl-xs shadow-xs'
                 }`}
               >
                 {msg.text}
@@ -154,8 +178,8 @@ export const MessagesPage: React.FC = () => {
         </div>
 
         {/* Chat Input Bar */}
-        <div className="p-4 border-t border-slate-200 bg-white flex items-center space-x-3 shrink-0">
-          <button className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+        <div className="p-3 sm:p-4 border-t border-slate-200 bg-white flex items-center space-x-2 sm:space-x-3 shrink-0">
+          <button className="p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer">
             <Paperclip className="w-4 h-4" />
           </button>
           <input
@@ -167,9 +191,9 @@ export const MessagesPage: React.FC = () => {
                 ? 'Type official broadcast message...'
                 : 'அதிகாரப்பூர்வ செய்தியை உள்ளிடவும்...'
             }
-            className="flex-1 bg-slate-50 border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30"
+            className="flex-1 bg-slate-50 border border-slate-200 text-xs rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30"
           />
-          <button className="p-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors cursor-pointer shadow-xs">
+          <button className="p-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-yellow-300 rounded-xl transition-colors cursor-pointer shadow-xs border border-red-500/40">
             <Send className="w-4 h-4" />
           </button>
         </div>

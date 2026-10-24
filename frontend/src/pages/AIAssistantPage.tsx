@@ -3,12 +3,6 @@ import { useApp } from '../context/AppContext';
 import {
   Bot,
   Sparkles,
-  Send,
-  UserCheck,
-  Shield,
-  MapPin,
-  Briefcase,
-  CheckCircle,
   HelpCircle,
   ArrowRight,
   Database
@@ -48,8 +42,8 @@ export const AIAssistantPage: React.FC = () => {
   const sampleQueries = [
     'Find verified cardiologists in Salem North',
     'Who is responsible for Polling Booth 143?',
-    'Show IT professionals in Chennai Central who know Python and Cloud',
-    'Find organic farming consultants in Salem district',
+    'Show IT professionals in Chennai Central',
+    'Find organic farming consultants in Salem',
   ];
 
   const handleExecuteQuery = (queryText: string) => {
@@ -60,53 +54,39 @@ export const AIAssistantPage: React.FC = () => {
         answer: 'Found 1 verified cardiologist in Salem District assigned to District Medical Wing Secretary role.',
         structuredFilters: {
           District: 'Salem',
-          Profession: 'Interventional Cardiologist',
+          Specialisation: 'Interventional Cardiology',
           VerificationStatus: 'VERIFIED',
         },
         membersMatched: [MOCK_MEMBERS[0]],
-        sources: ['Party Central Registry', 'Medical Wing Roster'],
-        confidence: 'HIGH',
-      });
-    } else if (queryText.includes('Booth 143')) {
-      setActiveResult({
-        query: queryText,
-        answer:
-          'Polling Booth 143 is located at Govt Girls Higher Sec School, Ward 24, Salem North. Designated Booth Coordinator is A. Dinesh.',
-        structuredFilters: {
-          UnitType: 'POLLING_BOOTH',
-          BoothCode: 'TN-SLM-B143',
-          Location: 'Ward 24, Salem North',
-        },
-        membersMatched: [],
-        sources: ['Organisation Units Hierarchy Master'],
+        sources: ['Medical Wing Registry', 'Cadre Medical ID'],
         confidence: 'HIGH',
       });
     } else {
       setActiveResult({
         query: queryText,
-        answer: 'Found 1 verified cloud and AI architect in Chennai Central enrolled in State Digital Committee.',
+        answer: `Processed natural query: "${queryText}". Found relevant verified party cadre and assigned coordinators according to active RBAC rules for ${currentRole}.`,
         structuredFilters: {
-          District: 'Chennai',
-          Profession: 'Principal Cloud & AI Architect',
-          Skills: 'Python, Cloud Infrastructure, AI Workflows',
+          QueryIntent: 'Semantic Cadre Retrieval',
+          Scope: 'Salem & Chennai Regional Units',
+          RBAC: 'Strict Masking Enabled',
         },
-        membersMatched: [MOCK_MEMBERS[2]],
-        sources: ['IT Wing Database', 'Skills Graph'],
+        membersMatched: [MOCK_MEMBERS[0], MOCK_MEMBERS[1]],
+        sources: ['Central Party Registry', 'AC Cadre Ledger'],
         confidence: 'HIGH',
       });
     }
   };
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-12">
-      {/* Title Header */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-950 p-6 rounded-xl border border-slate-800 text-white shadow-md">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-red-600/30 border border-red-500/40 flex items-center justify-center text-red-400">
-            <Bot className="w-6 h-6" />
+    <div className="space-y-5 sm:space-y-6 max-w-5xl mx-auto pb-12">
+      {/* AI Header Card */}
+      <div className="p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-950 to-red-950 text-white border-2 border-white shadow-md relative overflow-hidden">
+        <div className="relative z-10 flex items-center space-x-3 sm:space-x-4">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-600 to-yellow-500 flex items-center justify-center shadow-lg border border-yellow-300/40 shrink-0">
+            <Bot className="w-6 h-6 text-slate-950" />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight">
+            <h1 className="text-lg sm:text-xl font-black tracking-tight">
               {language === 'en' ? 'TVK Intelligent Cadre Assistant' : 'தவெக அறிவார்ந்த AI உதவியாளர்'}
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
@@ -119,7 +99,7 @@ export const AIAssistantPage: React.FC = () => {
       </div>
 
       {/* Natural Language Prompt Input */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+      <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-5 shadow-xs space-y-3">
         <div className="relative">
           <textarea
             value={inputQuery}
@@ -130,20 +110,20 @@ export const AIAssistantPage: React.FC = () => {
                 : 'இயல்புமொழியில் கேட்கவும் (எ.கா. "சேலம் வடக்கு வழக்கறிஞர்களைக் கண்டறியவும்")...'
             }
             rows={2}
-            className="w-full bg-slate-50 border border-slate-200 text-xs rounded-lg p-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30 resize-none font-sans"
+            className="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl p-3 sm:p-3.5 pr-24 sm:pr-32 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-600/30 resize-none font-sans"
           />
           <button
             onClick={() => handleExecuteQuery(inputQuery || sampleQueries[0])}
-            className="absolute right-3 bottom-3 px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white font-semibold text-xs rounded-md flex items-center space-x-1.5 transition-colors cursor-pointer"
+            className="absolute right-2.5 bottom-3 px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-yellow-300 font-bold text-xs rounded-xl flex items-center space-x-1.5 transition-colors cursor-pointer shadow-xs border border-red-500/40"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>{language === 'en' ? 'Search Assistant' : 'தேடுக'}</span>
+            <span>{language === 'en' ? 'Search' : 'தேடுக'}</span>
           </button>
         </div>
 
         {/* Sample Prompts */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-          <span className="text-slate-400 font-semibold flex items-center space-x-1">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1 text-xs">
+          <span className="text-slate-400 font-bold flex items-center space-x-1 text-[11px]">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Sample Prompts:</span>
           </span>
@@ -151,7 +131,7 @@ export const AIAssistantPage: React.FC = () => {
             <button
               key={idx}
               onClick={() => handleExecuteQuery(q)}
-              className="text-[11px] bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-600 px-2.5 py-1 rounded-md transition-colors cursor-pointer"
+              className="text-[11px] bg-slate-100 hover:bg-yellow-50 hover:text-red-700 text-slate-700 font-medium px-2.5 py-1 rounded-lg transition-colors cursor-pointer border border-slate-200/60"
             >
               {q}
             </button>
@@ -159,13 +139,13 @@ export const AIAssistantPage: React.FC = () => {
         </div>
       </div>
 
-      {/* AI Grounded Response Dossier */}
+      {/* AI Grounded Response Dossier with White Card Border */}
       {activeResult && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-5 animate-fade-in">
+        <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-6 shadow-xs space-y-4 sm:space-y-5 animate-fade-in">
           {/* Grounding & Evidence Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 text-xs">
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
                 Confidence: {activeResult.confidence}
               </span>
               <span className="text-slate-400">•</span>
@@ -174,13 +154,13 @@ export const AIAssistantPage: React.FC = () => {
                 <span>Sources: {activeResult.sources.join(', ')}</span>
               </span>
             </div>
-            <div className="text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded font-semibold border border-amber-200">
+            <div className="text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full font-bold border border-amber-200">
               RBAC Verified for {currentRole}
             </div>
           </div>
 
           {/* AI Explanation Text */}
-          <div className="text-xs text-slate-800 leading-relaxed font-medium bg-slate-50 p-4 rounded-lg border border-slate-100">
+          <div className="text-xs text-slate-800 leading-relaxed font-medium bg-slate-50 p-3.5 sm:p-4 rounded-xl border border-slate-100">
             {activeResult.answer}
           </div>
 
@@ -193,7 +173,7 @@ export const AIAssistantPage: React.FC = () => {
               {Object.entries(activeResult.structuredFilters).map(([k, v]) => (
                 <div
                   key={k}
-                  className="bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200 flex items-center space-x-1 text-slate-700 text-[11px]"
+                  className="bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 flex items-center space-x-1 text-slate-700 text-[11px]"
                 >
                   <span className="font-semibold text-slate-500">{k}:</span>
                   <span className="font-bold text-slate-900">{v}</span>
@@ -208,21 +188,21 @@ export const AIAssistantPage: React.FC = () => {
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Matched Cadre Profiles ({activeResult.membersMatched.length})
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 {activeResult.membersMatched.map((member) => (
                   <div
                     key={member.id}
-                    className="p-4 rounded-lg border border-slate-200 bg-white hover:border-red-300 transition-all space-y-3 shadow-2xs"
+                    className="p-4 rounded-xl border border-slate-200 bg-white hover:border-red-300 transition-all space-y-3 shadow-2xs"
                   >
                     <div className="flex items-center space-x-3">
                       <img
                         src={member.photoUrl}
                         alt={member.name}
-                        className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100"
+                        className="w-10 h-10 rounded-xl object-cover ring-2 ring-slate-100"
                       />
                       <div>
                         <h4 className="text-xs font-bold text-slate-900">{member.name}</h4>
-                        <p className="text-[11px] text-amber-800 font-semibold">
+                        <p className="text-[11px] text-amber-800 font-bold font-mono">
                           {member.memberNumber}
                         </p>
                       </div>
@@ -241,7 +221,7 @@ export const AIAssistantPage: React.FC = () => {
                       </span>
                       <button
                         onClick={() => navigate(`/members/${member.id}`)}
-                        className="px-2.5 py-1 bg-slate-100 hover:bg-red-50 hover:text-red-700 text-xs font-semibold rounded transition-colors cursor-pointer flex items-center space-x-1"
+                        className="px-2.5 py-1 bg-slate-100 hover:bg-yellow-50 hover:text-red-700 text-xs font-bold rounded-lg transition-colors cursor-pointer flex items-center space-x-1"
                       >
                         <span>View Profile</span>
                         <ArrowRight className="w-3 h-3" />

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { FileText, Download, Lock, CheckCircle, Search, Shield } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 
 export const DocumentsPage: React.FC = () => {
-  const { language, currentRole } = useApp();
+  const { language } = useApp();
 
   const documents = [
     {
@@ -39,13 +39,13 @@ export const DocumentsPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-12">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-5 sm:space-y-6 max-w-5xl mx-auto pb-12">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-slate-900 tracking-tight">
             {language === 'en' ? 'Official Party Knowledge & Documents' : 'கட்சி ஆவணங்கள் & கொள்கை வழிகாட்டிகள்'}
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1 font-medium">
             {language === 'en'
               ? 'Authorized resolutions, circulars, and cadre training doctrine with cryptographic integrity.'
               : 'கட்சி அரசியல் சாசனம், தீர்மானங்கள் மற்றும் அதிகாரப்பூர்வ வழிகாட்டுதல்கள்.'}
@@ -53,24 +53,24 @@ export const DocumentsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3.5 sm:space-y-4">
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-slate-300 transition-all"
+            className="bg-white rounded-2xl border-2 border-white p-4 sm:p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-md transition-all"
           >
-            <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 rounded-lg bg-red-50 text-red-700 flex items-center justify-center shrink-0">
+            <div className="flex items-start space-x-3.5 sm:space-x-4">
+              <div className="w-10 h-10 rounded-xl bg-red-50 text-red-700 flex items-center justify-center shrink-0 border border-red-100">
                 <FileText className="w-5 h-5" />
               </div>
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 uppercase">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 uppercase">
                     {doc.category}
                   </span>
                   <span className="text-[10px] text-slate-400 font-mono">{doc.version}</span>
                 </div>
-                <h3 className="text-sm font-bold text-slate-900">
+                <h3 className="text-sm font-extrabold text-slate-900">
                   {language === 'en' ? doc.title : doc.titleTamil}
                 </h3>
                 <p className="text-xs text-slate-400">
@@ -79,8 +79,8 @@ export const DocumentsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-3 shrink-0">
-              <button className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-lg flex items-center space-x-2 transition-colors cursor-pointer shadow-xs">
+            <div className="flex items-center space-x-3 shrink-0 self-start md:self-auto">
+              <button className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center space-x-2 transition-colors cursor-pointer shadow-xs">
                 <Download className="w-3.5 h-3.5" />
                 <span>{language === 'en' ? 'Download PDF' : 'பதிவிறக்கம்'}</span>
               </button>

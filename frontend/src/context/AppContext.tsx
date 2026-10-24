@@ -13,6 +13,12 @@ interface AppContextType {
   canViewLegal: (member: Member) => boolean;
   canVerifyMember: () => boolean;
   canExportData: () => boolean;
+  isSidebarCollapsed: boolean;
+  setIsSidebarCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleSidebar: () => void;
+  isMobileSidebarOpen: boolean;
+  setIsMobileSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleMobileSidebar: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -20,6 +26,11 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentRole, setCurrentRole] = useState<UserRole>('SUPER_ADMIN');
   const [language, setLanguage] = useState<Language>('en');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
+
+  const toggleSidebar = () => setIsSidebarCollapsed((prev) => !prev);
+  const toggleMobileSidebar = () => setIsMobileSidebarOpen((prev) => !prev);
   
   // Simulated logged-in member
   const currentUser = MOCK_MEMBERS[0];
@@ -73,6 +84,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         canViewLegal,
         canVerifyMember,
         canExportData,
+        isSidebarCollapsed,
+        setIsSidebarCollapsed,
+        toggleSidebar,
+        isMobileSidebarOpen,
+        setIsMobileSidebarOpen,
+        toggleMobileSidebar,
       }}
     >
       {children}

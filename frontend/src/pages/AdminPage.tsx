@@ -50,27 +50,27 @@ export const AdminPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-12">
+    <div className="space-y-5 sm:space-y-6 max-w-7xl mx-auto pb-12">
       {/* Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-slate-900 tracking-tight">
             {language === 'en' ? 'Central Administration & Governance Desk' : 'மத்திய நிர்வாகம் & தணிக்கை தளம்'}
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1 font-medium">
             {language === 'en'
               ? 'Candidate verification, immutable audit logs, and party RBAC enforcement.'
               : 'உறுப்பினர் சரிபார்ப்பு, தணிக்கை பதிவேடு மற்றும் பாதுகாப்பு நெறிமுறைகள்.'}
           </p>
         </div>
-        <div className="flex items-center space-x-2 text-xs bg-slate-900 text-white px-3 py-1.5 rounded-lg">
+        <div className="flex items-center space-x-2 text-xs bg-slate-900 text-white px-3 py-1.5 rounded-xl self-start sm:self-auto shadow-xs">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Active Role: {currentRole}</span>
+          <span>Active: {currentRole}</span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-2xs flex space-x-2 text-xs font-semibold">
+      <div className="bg-white p-2 rounded-2xl border-2 border-white shadow-xs flex space-x-2 overflow-x-auto text-xs font-semibold scrollbar-none">
         {[
           { id: 'VERIFICATION', label: language === 'en' ? 'Pending Cadre Verification' : 'நிலுவை சரிபார்ப்புகள்' },
           { id: 'AUDIT', label: language === 'en' ? 'Immutable Audit Logs' : 'தணிக்கை பதிவேடு' },
@@ -79,9 +79,9 @@ export const AdminPage: React.FC = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-4 py-2 rounded-lg transition-colors cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               activeTab === tab.id
-                ? 'bg-red-700 text-white shadow-xs'
+                ? 'bg-red-700 text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
@@ -92,45 +92,45 @@ export const AdminPage: React.FC = () => {
 
       {/* Verification Queue Tab */}
       {activeTab === 'VERIFICATION' && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-4">
+        <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h2 className="text-sm font-bold text-slate-900">
               {language === 'en' ? 'Cadre Identity & Booth Verification Queue' : 'உறுப்பினர் அடையாள சரிபார்ப்பு பட்டியல்'}
             </h2>
-            <span className="text-xs text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold border border-amber-200">
+            <span className="text-xs text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full font-bold border border-amber-200">
               {pendingMembers.length} Pending Actions
             </span>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {pendingMembers.map((member) => (
               <div
                 key={member.id}
-                className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="p-4 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3.5">
                   <img
                     src={member.photoUrl}
                     alt={member.name}
-                    className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-200"
+                    className="w-12 h-12 rounded-xl object-cover ring-2 ring-red-600/20 shadow-xs shrink-0"
                   />
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900">{member.name}</h3>
-                    <p className="text-xs text-amber-800 font-semibold">{member.memberNumber}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <h3 className="text-sm font-extrabold text-slate-900">{member.name}</h3>
+                    <p className="text-xs text-amber-800 font-bold font-mono">{member.memberNumber}</p>
+                    <p className="text-xs text-slate-500 mt-0.5 font-medium">
                       {member.profession} • {member.assemblyConstituency} • {member.booth}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
-                  <button className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs rounded-lg shadow-xs flex items-center space-x-1.5 transition-colors cursor-pointer">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <button className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-1.5 transition-colors cursor-pointer">
                     <UserCheck className="w-3.5 h-3.5" />
-                    <span>Approve Verification</span>
+                    <span>Approve</span>
                   </button>
-                  <button className="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-xs rounded-lg border border-rose-200 flex items-center space-x-1.5 transition-colors cursor-pointer">
+                  <button className="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl border border-rose-200 flex items-center space-x-1.5 transition-colors cursor-pointer">
                     <UserX className="w-3.5 h-3.5" />
-                    <span>Reject / Request Proof</span>
+                    <span>Reject</span>
                   </button>
                 </div>
               </div>
@@ -139,33 +139,33 @@ export const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* Audit Log Tab */}
+      {/* Audit Log Tab with Responsive Table Scroll */}
       {activeTab === 'AUDIT' && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-4">
+        <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h2 className="text-sm font-bold text-slate-900">
-                {language === 'en' ? 'High-Assurance Security Audit Logs' : 'பாதுகாப்பு தணிக்கை பதிவுகள்'}
+                Immutable Tamper-Proof Audit Trail (Clause 14.2)
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Every sensitive action (legal disclosure read, phone consent access, member role changes) is cryptographically signed and logged.
+                Every sensitive data inspection is cryptographically logged with role attribution.
               </p>
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900 text-amber-300">
-              APPEND-ONLY LEDGER
+            <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
+              Integrity Verified
             </span>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <table className="w-full text-left text-xs min-w-[650px]">
               <thead className="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-200">
                 <tr>
-                  <th className="py-2.5 px-3">Timestamp</th>
-                  <th className="py-2.5 px-3">Actor / Role</th>
-                  <th className="py-2.5 px-3">Action Type</th>
-                  <th className="py-2.5 px-3">Target Entity</th>
-                  <th className="py-2.5 px-3">Audit Reason</th>
-                  <th className="py-2.5 px-3">Source IP</th>
+                  <th className="py-3 px-3">Timestamp</th>
+                  <th className="py-3 px-3">Cadre Actor</th>
+                  <th className="py-3 px-3">Action Type</th>
+                  <th className="py-3 px-3">Subject / Target</th>
+                  <th className="py-3 px-3">Official Purpose</th>
+                  <th className="py-3 px-3">IP Address</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -174,7 +174,7 @@ export const AdminPage: React.FC = () => {
                     <td className="py-3 px-3 font-mono text-[11px] text-slate-500">{log.timestamp}</td>
                     <td className="py-3 px-3 font-semibold text-slate-900">{log.actor}</td>
                     <td className="py-3 px-3">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-50 text-red-800 border border-red-200">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-50 text-red-800 border border-red-200">
                         {log.action}
                       </span>
                     </td>
@@ -189,9 +189,9 @@ export const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* RBAC Matrix Tab */}
+      {/* RBAC Matrix Tab with Responsive Table Scroll */}
       {activeTab === 'RBAC' && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs space-y-4">
+        <div className="bg-white rounded-2xl border-2 border-white p-4 sm:p-6 shadow-xs space-y-4">
           <div className="border-b border-slate-100 pb-3">
             <h2 className="text-sm font-bold text-slate-900">
               Constitutional RBAC Visibility & Authorization Matrix
@@ -201,8 +201,8 @@ export const AdminPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border border-slate-200">
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <table className="w-full text-left text-xs border border-slate-200 min-w-[700px]">
               <thead className="bg-slate-900 text-white font-semibold">
                 <tr>
                   <th className="py-2.5 px-3">Function / Field</th>
